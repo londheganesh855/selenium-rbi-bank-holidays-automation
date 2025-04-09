@@ -24,10 +24,10 @@ jobs:
           sudo apt install -y google-chrome-stable
 
       - name: Give execute permissions to chromedriver
-        run: chmod +x drivers/chromedriver
+        run: chmod +x ./drivers/chromedriver
 
       - name: Move chromedriver to /usr/local/bin
-        run: sudo mv drivers/chromedriver /usr/local/bin/chromedriver
+        run: sudo mv ./drivers/chromedriver /usr/local/bin/chromedriver
 
       - name: Confirm Chrome and ChromeDriver versions
         run: |
