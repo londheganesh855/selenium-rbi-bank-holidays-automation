@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-04-09T11:12:44 IST" name="Command line suite" finished-at="2025-04-09T11:13:13 IST" duration-ms="29647">
+    <groups>
+    </groups>
+    <test started-at="2025-04-09T11:12:44 IST" name="Command line test" finished-at="2025-04-09T11:13:13 IST" duration-ms="29647">
+      <class name="tests.ReserveBankOfIndiaHolidays">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.ReserveBankOfIndiaHolidays@7bc1a03d]" started-at="2025-04-09T11:12:44 IST" name="setUp" finished-at="2025-04-09T11:12:50 IST" duration-ms="6727" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="reserveBankOfIndiaHolidaysTest()[pri:0, instance:tests.ReserveBankOfIndiaHolidays@7bc1a03d]" started-at="2025-04-09T11:12:50 IST" name="reserveBankOfIndiaHolidaysTest" finished-at="2025-04-09T11:13:13 IST" duration-ms="22507" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reserveBankOfIndiaHolidaysTest -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:tests.ReserveBankOfIndiaHolidays@7bc1a03d]" started-at="2025-04-09T11:13:13 IST" name="tearDown" finished-at="2025-04-09T11:13:13 IST" duration-ms="354" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- tests.ReserveBankOfIndiaHolidays -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>

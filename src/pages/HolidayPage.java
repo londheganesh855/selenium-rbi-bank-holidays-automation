@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,6 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HolidayPage {
+
+    @BeforeClass
+public void setUp() {
+    try {
+        System.out.println("Setting up test class...");
+        // your setup logic
+    } catch (Exception e) {
+        e.printStackTrace(); // Important
+        throw e;
+    }
+}
     private WebDriver driver;
 
     public HolidayPage(WebDriver driver) {
