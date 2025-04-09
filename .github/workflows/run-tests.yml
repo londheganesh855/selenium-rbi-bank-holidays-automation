@@ -18,17 +18,16 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Chrome browser
+      - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
-      - name: Install ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: 'latest'
+      - name: Install matching ChromeDriver
+        uses: browser-actions/setup-chromedriver@v1
 
-      - name: Grant execute permission to ChromeDriver
-        run: chmod +x /usr/local/bin/chromedriver
-
-      - name: Run TestNG tests
+      - name: Confirm Chrome and ChromeDriver versions
         run: |
-          java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
+          google-chrome --version
+          chromedriver --version
+
+      - name: Run TestNG Tests
+        run: java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
