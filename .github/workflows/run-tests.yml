@@ -1,4 +1,4 @@
-name: Java Selenium Automation CI
+name: Java CI with TestNG
 
 on:
   push:
@@ -8,24 +8,25 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Set up JDK
+    - name: Set up Java
       uses: actions/setup-java@v3
       with:
-        java-version: '17'
         distribution: 'temurin'
+        java-version: '17'
 
-    - name: Compile Java code
+    - name: Create bin directory
+      run: mkdir -p bin
+
+    - name: Compile Java files
       run: |
-        mkdir -p bin
-        javac -cp "lib/*" -d bin src/*.java
+        javac -d bin -cp "lib/*" $(find src -name "*.java")
 
     - name: Run TestNG tests
       run: |
-        java -cp "lib/*:bin" org.testng.TestNG testng.xml
+        java -cp "bin:lib/*" org.testng.TestNG src/tests/ReserveBankOfIndiaHolidays.java
