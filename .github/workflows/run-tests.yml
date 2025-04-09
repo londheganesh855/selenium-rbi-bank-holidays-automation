@@ -1,4 +1,4 @@
-name: Run Selenium Tests
+name: Run Selenium Tests Without Maven
 
 on:
   push:
@@ -6,18 +6,31 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  run-selenium:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Java
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
+          java-version: '11'
           distribution: 'temurin'
-          java-version: '17'
 
-      - name: Build with Maven
-        run: mvn clean install
+      - name: Download Selenium and WebDriver JARs
+        run: |
+          mkdir libs
+          wget -P libs https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-java/4.17.0/selenium-java-4.17.0.jar
+          wget -P libs https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-api/4.17.0/selenium-api-4.17.0.jar
+          wget -P libs https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-chrome-driver/4.17.0/selenium-chrome-driver-4.17.0.jar
+          wget -P libs https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-support/4.17.0/selenium-support-4.17.0.jar
+          wget -P libs https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-http/4.17.0/selenium-http-4.17.0.jar
+          wget -P libs https://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-devtools-v120/4.17.0/selenium-devtools-v120-4.17.0.jar
+
+      - name: Compile Java files
+        run: javac -cp "libs/*" src/**/*.java
+
+      - name: Run Tests
+        run: java -cp "libs/*:src" your.package.MainClassName
