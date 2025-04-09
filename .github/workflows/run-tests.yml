@@ -1,4 +1,4 @@
-name: Run Selenium Tests
+name: Run Selenium Tests Without XML
 
 on:
   push:
@@ -27,6 +27,6 @@ jobs:
       run: |
         javac -d bin -cp "lib/*" $(find src -name "*.java")
 
-    - name: Run TestNG tests
+    - name: Run TestNG test class directly
       run: |
-        java -cp "bin:lib/*" org.testng.TestNG testng.xml
+        java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
