@@ -38,4 +38,4 @@ jobs:
 
     - name: Run Selenium TestNG Test
       run: |
-        java -cp "bin:lib/*" org.testng.TestNG testng.xml
+          java -cp "bin:lib/*" org.testng.TestNG test-output/testng.xml
