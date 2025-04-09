@@ -1,4 +1,4 @@
-name: Run Selenium Tests Without XML
+name: Run TestNG Selenium Tests Without XML
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Set up Java
@@ -24,9 +24,7 @@ jobs:
       run: mkdir -p bin
 
     - name: Compile Java files
-      run: |
-        javac -d bin -cp "lib/*" $(find src -name "*.java")
+      run: javac -d bin -cp "lib/*" $(find src -name "*.java")
 
     - name: Run TestNG test class directly
-      run: |
-        java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
+      run: java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
