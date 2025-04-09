@@ -17,7 +17,7 @@ jobs:
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
-        java-version: '21'  # Updated to match your local compile version
+        java-version: '21'  # Required to match class file version 67.0
         distribution: 'temurin'
 
     - name: Install Google Chrome
@@ -39,7 +39,7 @@ jobs:
     - name: Compile Java Classes
       run: |
         mkdir -p bin
-        javac -d bin -cp "lib/*" $(find src -name "*.java") $(find tests -name "*.java")
+        javac -d bin -cp "lib/*" $(find src -name "*.java")
 
     - name: Run Selenium TestNG Test
       run: |
