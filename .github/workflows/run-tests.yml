@@ -1,4 +1,4 @@
-name: Java CI with TestNG
+name: Run Selenium Tests
 
 on:
   push:
@@ -7,18 +7,18 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
+        java-version: '11'
         distribution: 'temurin'
-        java-version: '17'
 
     - name: Create bin directory
       run: mkdir -p bin
@@ -29,4 +29,4 @@ jobs:
 
     - name: Run TestNG tests
       run: |
-        java -cp "bin:lib/*" org.testng.TestNG src/tests/ReserveBankOfIndiaHolidays.java
+        java -cp "bin:lib/*" org.testng.TestNG testng.xml
