@@ -14,10 +14,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Java 21
+    - name: Set up Java
       uses: actions/setup-java@v3
       with:
-        java-version: '21'
+        java-version: '17'
         distribution: 'temurin'
 
     - name: Install Google Chrome
@@ -36,11 +36,6 @@ jobs:
         chmod +x chromedriver-linux64/chromedriver
         sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 
-    - name: Compile Java files
+    - name: Run Selenium TestNG Test
       run: |
-        mkdir -p bin
-        javac -d bin -cp "lib/*" $(find ./src ./tests ./base ./pages ./utils -name "*.java")
-
-    - name: Run Selenium TestNG Tests
-      run: |
-        java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
+        java -cp "bin:lib/*" org.testng.TestNG testng.xml
