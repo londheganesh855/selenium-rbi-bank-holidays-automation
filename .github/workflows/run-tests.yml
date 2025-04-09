@@ -1,30 +1,36 @@
-name: Run TestNG Selenium Tests Without XML
+name: Run Selenium Test with Chrome
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Java
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-    - name: Create bin directory
-      run: mkdir -p bin
+      - name: Set up Chrome browser
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: latest
 
-    - name: Compile Java files
-      run: javac -d bin -cp "lib/*" $(find src -name "*.java")
+      - name: Download and set up ChromeDriver
+        run: |
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+          wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$CHROME_VERSION/linux64/chromedriver-linux64.zip"
+          unzip chromedriver-linux64.zip
+          chmod +x chromedriver-linux64/chromedriver
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
 
-    - name: Run TestNG test class directly
-      run: java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
+      - name: Run TestNG Test
+        run: |
+          java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
