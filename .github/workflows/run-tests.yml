@@ -5,32 +5,30 @@ on:
   pull_request:
 
 jobs:
-  build:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Java
+      - name: Set up Java 17
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Chrome browser
+      - name: Install Chrome browser
         uses: browser-actions/setup-chrome@v1
+
+      - name: Install ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
         with:
-          chrome-version: latest
+          chromedriver-version: 'latest'
 
-      - name: Download and set up ChromeDriver
-        run: |
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-          wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$CHROME_VERSION/linux64/chromedriver-linux64.zip"
-          unzip chromedriver-linux64.zip
-          chmod +x chromedriver-linux64/chromedriver
-          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+      - name: Grant execute permission to ChromeDriver
+        run: chmod +x /usr/local/bin/chromedriver
 
-      - name: Run TestNG Test
+      - name: Run TestNG tests
         run: |
           java -cp "bin:lib/*" org.testng.TestNG -testclass tests.ReserveBankOfIndiaHolidays
